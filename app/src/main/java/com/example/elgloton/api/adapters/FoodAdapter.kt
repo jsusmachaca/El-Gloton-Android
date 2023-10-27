@@ -1,4 +1,4 @@
-package com.example.elgloton.api
+package com.example.elgloton.api.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
