@@ -3,18 +3,21 @@ package com.example.elgloton
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elgloton.api.APIClient
 import com.example.elgloton.api.adapters.FoodAdapter
 import com.example.elgloton.api.models.Food
+import com.example.elgloton.components.LoginDialog
 import com.example.elgloton.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LoginDialog.LoginDialogListener {
     private lateinit var binding: ActivityMainBinding
     lateinit var recyclerView: RecyclerView
 
@@ -40,11 +43,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnSoups.setOnClickListener {
-            currentCategory = "soups"
-            loadFoodData(currentCategory)
+            // currentCategory = "soups"
+            // loadFoodData(currentCategory)
+            val dialog = LoginDialog()
+            dialog.show(supportFragmentManager, "login_dialog")
         }
 
         loadFoodData(currentCategory)
+
     }
 
     private fun loadFoodData(category: String) {
@@ -68,6 +74,10 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onLoginClick(username: String, password: String) {
+        TODO("Not yet implemented")
     }
 
 }
