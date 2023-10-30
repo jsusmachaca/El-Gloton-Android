@@ -1,4 +1,4 @@
-package com.example.elgloton.components
+package com.example.elgloton.components.dialogs
 
 import android.app.AlertDialog
 import android.app.Dialog

@@ -1,7 +1,6 @@
 package com.example.elgloton.components
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.elgloton.R
 import com.example.elgloton.api.APIClient
 import com.example.elgloton.api.adapters.FoodAdapter
-import com.example.elgloton.api.models.Food
+import com.example.elgloton.api.models.home.Food
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

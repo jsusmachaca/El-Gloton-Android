@@ -1,6 +1,6 @@
 package com.example.elgloton.api
 
-import com.example.elgloton.api.requests.APIServiceAuth
+import com.example.elgloton.api.requests.auth.APIServiceAuth
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

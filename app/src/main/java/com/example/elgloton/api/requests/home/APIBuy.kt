@@ -1,7 +1,6 @@
-package com.example.elgloton.api.requests
+package com.example.elgloton.api.requests.home
 
-import com.example.elgloton.api.models.AuthResponse
-import com.example.elgloton.api.models.User
+import com.example.elgloton.api.models.home.BuyRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header

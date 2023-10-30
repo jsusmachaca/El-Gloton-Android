@@ -2,8 +2,8 @@ package com.example.elgloton.api
 
 import android.content.Context
 import android.widget.Toast
-import com.example.elgloton.api.requests.APIBuy
-import com.example.elgloton.api.requests.BuyRequest
+import com.example.elgloton.api.requests.home.APIBuy
+import com.example.elgloton.api.models.home.BuyRequest
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +22,7 @@ object APIClientBuy {
         val buyRequest = BuyRequest(quantity)
 
         val sharedPreferences = context.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
-        val authToken = ("Bearer " + sharedPreferences.getString("access_token", ""))
+        val authToken = ("Bearer " + sharedPreferences.getString("access_token", null))
         val call = apiService.buyFood(buyRequest, foodId, authToken)
 
         call.enqueue(object : Callback<Void> {

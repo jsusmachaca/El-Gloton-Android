@@ -2,34 +2,31 @@ package com.example.elgloton.api.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elgloton.R
 import com.example.elgloton.api.APIClientDel
-import com.example.elgloton.api.models.FoodCardItem
-import com.example.elgloton.api.models.Order
-import com.example.elgloton.api.requests.APIDelete
+import com.example.elgloton.api.models.dashboard.FoodCard
+import com.example.elgloton.api.models.dashboard.FoodCardItem
+import com.example.elgloton.api.models.dashboard.Order
 import com.squareup.picasso.Picasso
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
-class FoodCardAdapter(private val context: Context, private val orderList: MutableList<Order>) : RecyclerView.Adapter<FoodCardAdapter.ViewHolder>() {
+class FoodCardAdapter(private val context: Context, private val orderList: MutableList<Order>, private val card: List<FoodCardItem>) : RecyclerView.Adapter<FoodCardAdapter.ViewHolder>() {
+    private var total: Double = 0.00
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val foodImage: ImageView = itemView.findViewById(R.id.foodCardImage)
         val foodName: TextView = itemView.findViewById(R.id.foodCardName)
         val foodPrice: TextView = itemView.findViewById(R.id.foodCardPrice)
         private val deleteImage: ImageView = itemView.findViewById(R.id.deleteIcon)
+        val buttonTotalPay: Button = itemView.findViewById(R.id.totalPayButton)
 
         init {
             deleteImage.setOnClickListener {
@@ -61,9 +58,12 @@ class FoodCardAdapter(private val context: Context, private val orderList: Mutab
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = orderList[position]
+
         holder.foodName.text = order.food.food_name
         holder.foodPrice.text = "S/. ${order.food.price} \t\t Cantidad: ${order.quantity}"
 
+
+        println("Total total total => $total")
         Picasso.get()
             .load(order.food.food_image)
             .into(holder.foodImage)
@@ -72,5 +72,4 @@ class FoodCardAdapter(private val context: Context, private val orderList: Mutab
     override fun getItemCount(): Int {
         return orderList.size
     }
-
 }

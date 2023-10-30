@@ -1,4 +1,4 @@
-package com.example.elgloton.api.models
+package com.example.elgloton.api.models.home
 
 data class FoodItem(
     val categorie: Int,

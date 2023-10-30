@@ -1,4 +1,4 @@
-package com.example.elgloton.api.requests
+package com.example.elgloton.api.requests.dashboard
 
 import retrofit2.Call
 import retrofit2.http.DELETE

@@ -1,4 +1,4 @@
-package com.example.elgloton.api.models
+package com.example.elgloton.api.models.dashboard
 
 data class Order(
     val client: String,

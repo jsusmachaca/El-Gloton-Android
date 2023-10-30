@@ -1,6 +1,6 @@
-package com.example.elgloton.api.requests
+package com.example.elgloton.api.requests.dashboard
 
-import com.example.elgloton.api.models.FoodCardItem
+import com.example.elgloton.api.models.dashboard.FoodCardItem
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

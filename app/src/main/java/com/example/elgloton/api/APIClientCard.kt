@@ -2,7 +2,7 @@ package com.example.elgloton.api
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.elgloton.api.requests.APIServiceCard
+import com.example.elgloton.api.requests.dashboard.APIServiceCard
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -42,6 +42,6 @@ object APIClientCard {
     }
 
     fun getAccessToken(): String ? {
-        return sharedPreferences.getString("access_token", "")
+        return sharedPreferences.getString("access_token", null)
     }
 }

@@ -15,9 +15,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elgloton.R
 import com.example.elgloton.api.APIClientBuy
-import com.example.elgloton.api.models.FoodItem
-import com.example.elgloton.components.Dashboard
-import com.example.elgloton.components.LoginDialog
+import com.example.elgloton.api.models.home.FoodItem
+import com.example.elgloton.components.dialogs.DialogFood
+import com.example.elgloton.components.dialogs.LoginDialog
 import com.squareup.picasso.Picasso
 
 
@@ -49,10 +49,10 @@ class FoodAdapter(private val context: Context, private val foodItems: List<Food
 
         holder.foodPrice.setOnClickListener {
 
-            showNumberInputDialog(holder.itemView.context) { enterNumber ->
+            DialogFood.showNumberInputDialog(holder.itemView.context) { enterNumber ->
                 val sharedPreferences = context.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
 
-                val token = sharedPreferences.getString("access_token", "")
+                val token = sharedPreferences.getString("access_token", null)
                 if (token != null && token.isNotEmpty()) {
                     APIClientBuy.init(context, id, enterNumber)
                 } else {
@@ -66,34 +66,4 @@ class FoodAdapter(private val context: Context, private val foodItems: List<Food
     override fun getItemCount(): Int {
         return foodItems.size
     }
-
-
-    fun showNumberInputDialog(context: Context, onNumberEntered: (Int) -> Unit) {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.buy, null)
-        val numberEditText = dialogView.findViewById<EditText>(R.id.numberEditText)
-        val okButton = dialogView.findViewById<Button>(R.id.okButton)
-
-        val builder = AlertDialog.Builder(context)
-        builder.setView(dialogView)
-
-        val dialog = builder.create()
-        dialog.show()
-
-        okButton.setOnClickListener {
-            val enteredText = numberEditText.text.toString()
-            if (enteredText.isNotEmpty()) {
-                val enteredNumber = enteredText.toInt()
-                onNumberEntered(enteredNumber)
-                dialog.dismiss()
-            } else {
-                Toast.makeText(context, "Ingrese un número válido", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-
-
-
-
-
 }

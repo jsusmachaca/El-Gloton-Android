@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.elgloton.R
 import com.example.elgloton.api.APIClientCard
 import com.example.elgloton.api.adapters.FoodCardAdapter
-import com.example.elgloton.api.models.FoodCardItem
+import com.example.elgloton.api.models.dashboard.FoodCardItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +42,8 @@ class Dashboard : Fragment() {
                     val foodCardItems = response.body() ?: emptyList()
                     if (response.isSuccessful) {
                         val orderList = foodCardItems.flatMap { it.order }.toMutableList()
-                        val foodCardAdapter = FoodCardAdapter(requireContext(), orderList)
+
+                        val foodCardAdapter = FoodCardAdapter(requireContext(), orderList, foodCardItems)
                         recyclerView.adapter = foodCardAdapter
                     }
                 }
