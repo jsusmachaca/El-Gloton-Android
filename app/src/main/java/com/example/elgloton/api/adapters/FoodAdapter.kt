@@ -33,7 +33,11 @@ class FoodAdapter(private val foodItems: List<FoodItem>) : RecyclerView.Adapter<
 
         holder.foodName.text = foodItem.food_name
         holder.foodPrice.text = "S/.${foodItem.price}"
-        Picasso.get().load(foodItem.image).into(holder.foodImage)
+        Picasso.get()
+            .load(foodItem.image)
+            .into(holder.foodImage)
+
+        println("Los items de home $foodItem")
     }
 
     override fun getItemCount(): Int {

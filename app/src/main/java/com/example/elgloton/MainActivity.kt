@@ -1,16 +1,15 @@
 package com.example.elgloton
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.elgloton.api.APIClient
-import com.example.elgloton.api.adapters.FoodAdapter
-import com.example.elgloton.api.models.Food
+import androidx.fragment.app.Fragment
+import com.example.elgloton.api.APIAuth
+import com.example.elgloton.api.models.AuthResponse
+import com.example.elgloton.api.models.User
+import com.example.elgloton.components.Dashboard
+import com.example.elgloton.components.Home
 import com.example.elgloton.components.LoginDialog
 import com.example.elgloton.databinding.ActivityMainBinding
 import retrofit2.Call
@@ -19,65 +18,65 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), LoginDialog.LoginDialogListener {
     private lateinit var binding: ActivityMainBinding
-    lateinit var recyclerView: RecyclerView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val loginDialog = LoginDialog()
+        loginDialog.show(supportFragmentManager, "login_dialog")
 
-        var currentCategory = "foods"
-        recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+        replaceFragment(Home())
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.home -> replaceFragment(Home())
+                R.id.dashboard -> replaceFragment(Dashboard())
+                else -> {
 
-        binding.btnFoods.setOnClickListener {
-            currentCategory = "foods"
-            loadFoodData(currentCategory)
+                }
+            }
+            true
         }
-
-        binding.btnDrinks.setOnClickListener {
-            currentCategory = "drinks"
-            loadFoodData(currentCategory)
-        }
-
-        binding.btnSoups.setOnClickListener {
-            // currentCategory = "soups"
-            // loadFoodData(currentCategory)
-            val dialog = LoginDialog()
-            dialog.show(supportFragmentManager, "login_dialog")
-        }
-
-        loadFoodData(currentCategory)
 
     }
 
-    private fun loadFoodData(category: String) {
-        val retrofit = APIClient.apiService.getFood(category)
-        retrofit.enqueue(object : Callback<Food> {
-            override fun onResponse(call: Call<Food>, response: Response<Food>) {
-                Log.d("API Response", response.body().toString())
-                val foodItems = response.body()
-                if (foodItems != null) {
-                    val adapter = FoodAdapter(foodItems)
-                    recyclerView.adapter = adapter
-                }
-            }
-
-            override fun onFailure(call: Call<Food>, t: Throwable) {
-                Toast.makeText(
-                    this@MainActivity,
-                    "Error al consultar la API",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-        })
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
     }
 
     override fun onLoginClick(username: String, password: String) {
-        TODO("Not yet implemented")
+        val authRequest = User(username, password)
+
+        val call = APIAuth.authService.login(authRequest)
+
+        call.enqueue(object : Callback<AuthResponse> { // Define AuthResponse según tu API
+            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                if (response.isSuccessful) {
+                    val authResponse = response.body()
+
+                    val accessToken = authResponse?.access
+                    val refreshToken = authResponse?.refresh
+
+                    val sharedPreferences = getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
+                    sharedPreferences.edit().apply {
+                        putString("access_token", accessToken)
+                        putString("refresh", refreshToken)
+                        apply()
+                    }
+
+                } else {
+                    Toast.makeText(this@MainActivity, "Error de autenticación", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Error al conectarse al servidor", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
 }

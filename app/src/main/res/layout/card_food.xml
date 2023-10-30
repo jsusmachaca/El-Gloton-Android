@@ -6,15 +6,13 @@
     android:layout_margin="16dp"
     android:layout_height="320dp">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- Primer TextView (arriba) -->
         <TextView
-            android:id="@+id/foodName"
+            android:id="@+id/foodCardName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -26,18 +24,18 @@
 
         <!-- ImageView (en el medio) -->
         <ImageView
-            android:id="@+id/foodImage"
+            android:id="@+id/foodCardImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@+id/foodName"
+            app:layout_constraintTop_toBottomOf="@+id/foodCardName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/foodPrice" />
+            app:layout_constraintBottom_toTopOf="@+id/foodCardPrice" />
 
         <!-- Segundo TextView (abajo) -->
-        <Button
-            android:id="@id/foodPrice"
+        <TextView
+            android:id="@+id/foodCardPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#000"
@@ -46,6 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

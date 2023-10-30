@@ -6,43 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Botones centrados en la parte superior -->
-    <LinearLayout
-        android:id="@+id/buttonsLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <Button
-            android:id="@+id/btnFoods"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Foods" />
-
-        <Button
-            android:id="@+id/btnDrinks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Drinks" />
-
-        <Button
-            android:id="@+id/btnSoups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Soups" />
-    </LinearLayout>
-
-    <!-- RecyclerView debajo de los botones -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/buttonsLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </androidx.constraintlayout.widget.ConstraintLayout>
