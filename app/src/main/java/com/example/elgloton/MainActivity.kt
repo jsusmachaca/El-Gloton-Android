@@ -31,7 +31,16 @@ class MainActivity : AppCompatActivity(), LoginDialog.LoginDialogListener {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
                 R.id.home -> replaceFragment(Home())
-                R.id.dashboard -> replaceFragment(Dashboard())
+                R.id.dashboard -> {
+                    val sharedPreferences = getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
+                    val token = sharedPreferences.getString("access_token", "")
+                    if (token != null && token.isNotEmpty()) {
+                        replaceFragment(Dashboard())
+                    } else {
+                        val loginDialog = LoginDialog()
+                        loginDialog.show(supportFragmentManager, "login_dialog")
+                    }
+                }
                 else -> {
 
                 }
@@ -49,34 +58,44 @@ class MainActivity : AppCompatActivity(), LoginDialog.LoginDialogListener {
     }
 
     override fun onLoginClick(username: String, password: String) {
-        val authRequest = User(username, password)
+        if (username.isNotEmpty() && password.isNotEmpty()) {
+            // Ambos campos no están vacíos, proceder con la autenticación
+            val authRequest = User(username, password)
 
-        val call = APIAuth.authService.login(authRequest)
+            val call = APIAuth.authService.login(authRequest)
 
-        call.enqueue(object : Callback<AuthResponse> { // Define AuthResponse según tu API
-            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                if (response.isSuccessful) {
-                    val authResponse = response.body()
+            call.enqueue(object : Callback<AuthResponse> {
+                override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+                    if (response.isSuccessful) {
+                        val authResponse = response.body()
 
-                    val accessToken = authResponse?.access
-                    val refreshToken = authResponse?.refresh
+                        val accessToken = authResponse?.access
+                        val refreshToken = authResponse?.refresh
 
-                    val sharedPreferences = getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
-                    sharedPreferences.edit().apply {
-                        putString("access_token", accessToken)
-                        putString("refresh", refreshToken)
-                        apply()
+                        val sharedPreferences = getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
+                        sharedPreferences.edit().apply {
+                            putString("access_token", accessToken)
+                            putString("refresh", refreshToken)
+                            apply()
+                        }
+                    } else {
+                        Toast.makeText(this@MainActivity, "Error de autenticación", Toast.LENGTH_SHORT).show()
+                        val loginDialog = LoginDialog()
+                        loginDialog.show(supportFragmentManager, "login_dialog")
+
                     }
-
-                } else {
-                    Toast.makeText(this@MainActivity, "Error de autenticación", Toast.LENGTH_SHORT).show()
                 }
-            }
 
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "Error al conectarse al servidor", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, "Error al conectarse al servidor", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(this@MainActivity, "Debes ingresar un usuario y una contraseña", Toast.LENGTH_SHORT).show()
+            val loginDialog = LoginDialog()
+            loginDialog.show(supportFragmentManager, "login_dialog")
+
+        }
     }
 
 }

@@ -28,6 +28,7 @@ class Dashboard : Fragment() {
         recyclerView = dashboardView.findViewById(R.id.recyclerViewCard)
         APIClientCard.init(requireContext())
 
+
         loadFoodCardData()
         return dashboardView
     }
@@ -40,8 +41,8 @@ class Dashboard : Fragment() {
                 override fun onResponse(call: Call<List<FoodCardItem>>, response: Response<List<FoodCardItem>>) {
                     val foodCardItems = response.body() ?: emptyList()
                     if (response.isSuccessful) {
-                        val orderList = foodCardItems.flatMap { it.order }
-                        val foodCardAdapter = FoodCardAdapter(orderList)
+                        val orderList = foodCardItems.flatMap { it.order }.toMutableList()
+                        val foodCardAdapter = FoodCardAdapter(requireContext(), orderList)
                         recyclerView.adapter = foodCardAdapter
                     }
                 }

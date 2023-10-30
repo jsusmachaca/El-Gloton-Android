@@ -1,25 +1,56 @@
 package com.example.elgloton.api.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elgloton.R
+import com.example.elgloton.api.APIClientDel
 import com.example.elgloton.api.models.FoodCardItem
 import com.example.elgloton.api.models.Order
+import com.example.elgloton.api.requests.APIDelete
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
-class FoodCardAdapter(private val orderList: List<Order>) : RecyclerView.Adapter<FoodCardAdapter.ViewHolder>() {
+class FoodCardAdapter(private val context: Context, private val orderList: MutableList<Order>) : RecyclerView.Adapter<FoodCardAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val foodImage: ImageView = itemView.findViewById(R.id.foodCardImage)
         val foodName: TextView = itemView.findViewById(R.id.foodCardName)
         val foodPrice: TextView = itemView.findViewById(R.id.foodCardPrice)
+        private val deleteImage: ImageView = itemView.findViewById(R.id.deleteIcon)
+
+        init {
+            deleteImage.setOnClickListener {
+                val order = orderList[adapterPosition] // Obtén el objeto Order en el que se hizo clic
+                val position = adapterPosition
+                val foodId = order.id // Obtén el ID del alimento
+                sendRequestToDeleteFood(foodId, position, context)
+            }
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun sendRequestToDeleteFood(foodId: Int, position: Int, context: Context) {
+        APIClientDel.init(context, orderList, foodId, position) { deletePosition ->
+            notifyItemRemoved(position)
+            Toast.makeText(
+                context,
+                "Elemento eliminado",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,7 +61,6 @@ class FoodCardAdapter(private val orderList: List<Order>) : RecyclerView.Adapter
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val order = orderList[position]
-
         holder.foodName.text = order.food.food_name
         holder.foodPrice.text = "S/. ${order.food.price} \t\t Cantidad: ${order.quantity}"
 

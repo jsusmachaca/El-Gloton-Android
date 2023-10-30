@@ -63,7 +63,7 @@ class Home : Fragment() {
             override fun onResponse(call: Call<Food>, response: Response<Food>) {
                 val foodItems = response.body()
                 if (foodItems != null) {
-                    val adapter = FoodAdapter(foodItems)
+                    val adapter = FoodAdapter(requireContext(), foodItems, requireActivity().supportFragmentManager)
                     recyclerView.adapter = adapter
                 }
             }
