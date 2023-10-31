@@ -18,15 +18,13 @@ import com.example.elgloton.api.models.dashboard.Order
 import com.squareup.picasso.Picasso
 
 
-class FoodCardAdapter(private val context: Context, private val orderList: MutableList<Order>, private val card: List<FoodCardItem>) : RecyclerView.Adapter<FoodCardAdapter.ViewHolder>() {
-    private var total: Double = 0.00
+class FoodCardAdapter(private val context: Context, private val orderList: MutableList<Order>) : RecyclerView.Adapter<FoodCardAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val foodImage: ImageView = itemView.findViewById(R.id.foodCardImage)
         val foodName: TextView = itemView.findViewById(R.id.foodCardName)
         val foodPrice: TextView = itemView.findViewById(R.id.foodCardPrice)
         private val deleteImage: ImageView = itemView.findViewById(R.id.deleteIcon)
-        val buttonTotalPay: Button = itemView.findViewById(R.id.totalPayButton)
 
         init {
             deleteImage.setOnClickListener {
@@ -35,7 +33,10 @@ class FoodCardAdapter(private val context: Context, private val orderList: Mutab
                 val foodId = order.id // Obtén el ID del alimento
                 sendRequestToDeleteFood(foodId, position, context)
             }
+
         }
+
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -62,11 +63,10 @@ class FoodCardAdapter(private val context: Context, private val orderList: Mutab
         holder.foodName.text = order.food.food_name
         holder.foodPrice.text = "S/. ${order.food.price} \t\t Cantidad: ${order.quantity}"
 
-
-        println("Total total total => $total")
         Picasso.get()
             .load(order.food.food_image)
             .into(holder.foodImage)
+
     }
 
     override fun getItemCount(): Int {

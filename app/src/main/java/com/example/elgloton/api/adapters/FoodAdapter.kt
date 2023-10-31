@@ -17,7 +17,6 @@ import com.example.elgloton.R
 import com.example.elgloton.api.APIClientBuy
 import com.example.elgloton.api.models.home.FoodItem
 import com.example.elgloton.components.dialogs.DialogFood
-import com.example.elgloton.components.dialogs.LoginDialog
 import com.squareup.picasso.Picasso
 
 
@@ -48,17 +47,8 @@ class FoodAdapter(private val context: Context, private val foodItems: List<Food
         println("Los items de home $foodItem")
 
         holder.foodPrice.setOnClickListener {
-
             DialogFood.showNumberInputDialog(holder.itemView.context) { enterNumber ->
-                val sharedPreferences = context.getSharedPreferences("myAppPrefs", Context.MODE_PRIVATE)
-
-                val token = sharedPreferences.getString("access_token", null)
-                if (token != null && token.isNotEmpty()) {
-                    APIClientBuy.init(context, id, enterNumber)
-                } else {
-                    val loginDialog = LoginDialog()
-                    loginDialog.show(fragmentManager, "login_dialog")
-                }
+                APIClientBuy.init(context, id, enterNumber)
             }
         }
     }

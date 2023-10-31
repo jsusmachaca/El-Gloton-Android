@@ -43,7 +43,7 @@ class Dashboard : Fragment() {
                     if (response.isSuccessful) {
                         val orderList = foodCardItems.flatMap { it.order }.toMutableList()
 
-                        val foodCardAdapter = FoodCardAdapter(requireContext(), orderList, foodCardItems)
+                        val foodCardAdapter = FoodCardAdapter(requireContext(), orderList)
                         recyclerView.adapter = foodCardAdapter
                     }
                 }
