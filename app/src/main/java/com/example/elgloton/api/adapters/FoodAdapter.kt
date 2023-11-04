@@ -39,12 +39,10 @@ class FoodAdapter(private val context: Context, private val foodItems: List<Food
         val id = foodItem.id
 
         holder.foodName.text = foodItem.food_name
-        holder.foodPrice.text = "S/.${foodItem.price}"
+        holder.foodPrice.text = "S/. ${foodItem.price}"
         Picasso.get()
             .load(foodItem.image)
             .into(holder.foodImage)
-
-        println("Los items de home $foodItem")
 
         holder.foodPrice.setOnClickListener {
             DialogFood.showNumberInputDialog(holder.itemView.context) { enterNumber ->

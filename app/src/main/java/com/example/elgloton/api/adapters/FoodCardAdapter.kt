@@ -33,10 +33,7 @@ class FoodCardAdapter(private val context: Context, private val orderList: Mutab
                 val foodId = order.id // Obtén el ID del alimento
                 sendRequestToDeleteFood(foodId, position, context)
             }
-
         }
-
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
