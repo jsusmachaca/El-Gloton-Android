@@ -1,13 +1,18 @@
 package com.example.elgloton.components
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.elgloton.MainActivity
 import com.example.elgloton.R
@@ -23,8 +28,9 @@ class Login : Fragment() {
     lateinit var editUsername: EditText
     lateinit var editPassword: EditText
     lateinit var submitButton: Button
+    lateinit var register: TextView
 
-
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,15 +40,24 @@ class Login : Fragment() {
         editUsername = loginView.findViewById(R.id.username)
         editPassword = loginView.findViewById(R.id.password)
         submitButton = loginView.findViewById(R.id.buttonSubmit)
+        register = loginView.findViewById(R.id.register)
 
         submitButton.setOnClickListener {
             val username = editUsername.text.toString()
             val password = editPassword.text.toString()
             onLogin(username, password)
         }
-        return loginView
-    }
 
+        val registerUrl = "http://192.168.1.14:5173/auth/register"
+        register.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(registerUrl)
+            startActivity(intent)
+        }
+
+        return loginView
+
+    }
     private fun onLogin(username: String, password: String) {
         if (username.isNotEmpty() && password.isNotEmpty()) {
             val authRequest = User(username, password)

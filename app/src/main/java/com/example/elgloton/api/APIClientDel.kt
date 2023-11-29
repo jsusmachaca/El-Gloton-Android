@@ -30,6 +30,8 @@ object APIClientDel {
                 if (response.isSuccessful) {
                     orderList.removeAt(position)
                     onDeleteComplete(position)
+                } else {
+                    Toast.makeText(context, "No puedes eliminar mientras tengas una orden pendiente.", Toast.LENGTH_SHORT).show()
                 }
             }
 

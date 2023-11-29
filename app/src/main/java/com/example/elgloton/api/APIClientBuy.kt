@@ -28,7 +28,9 @@ object APIClientBuy {
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Se ha agregado al carrito", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Se ha agregado al carrito.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "No puedes agregar al carrito mientras tengas una orden pendiene.", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {

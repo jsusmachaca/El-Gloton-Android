@@ -63,7 +63,6 @@ class Dashboard : Fragment() {
                         totalPayButton.text = "Total: S/. $formattedPrice"
                         totalPayButton.setOnClickListener {
                             val idCarro = foodCardItems.map { it.id }[0]
-                            println("El id del carrito $idCarro")
                             DialogPay.showNumberInputDialog(requireContext()) { enterTable ->
                                 APIClientPay.init(requireContext(), idCarro, enterTable, totalPrice.toString())
                             }

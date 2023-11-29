@@ -30,7 +30,9 @@ object APIClientPay {
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Su pedido a la mesa $address_or_tables se a realizado con éxito", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Su pedido a la mesa $address_or_tables se a realizado con éxito.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "No puedes realizar pedidos mientras tengas una orden pendiente.", Toast.LENGTH_SHORT).show()
                 }
             }
             override fun onFailure(call: Call<Void>, t: Throwable) {

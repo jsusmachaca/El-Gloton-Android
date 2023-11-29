@@ -8,15 +8,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_width="184dp"
+        android:layout_height="178dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="@string/app_name"
+        android:foreground="@mipmap/gloton_foreground"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintStart_toStartOf="parent"
-        android:foreground="@drawable/logo_foreground"
-        android:background="@drawable/logo_background"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <EditText
