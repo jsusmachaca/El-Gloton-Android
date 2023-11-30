@@ -18,7 +18,7 @@ object APIClientCard {
     }
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://192.168.1.11:8000/")
+        .baseUrl("http://161.132.47.139/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(createOkHttpClient())
         .build()

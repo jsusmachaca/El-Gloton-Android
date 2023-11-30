@@ -14,7 +14,7 @@ object APIClientDel {
 
     fun init(context: Context, orderList: MutableList<Order>, foodId: Int, position: Int, onDeleteComplete: OnDeleteComplete) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.11:8000/") // Reemplaza con la URL de tu API
+            .baseUrl("http://161.132.47.139/") // Reemplaza con la URL de tu API
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
