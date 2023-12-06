@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object APIClientPay {
     fun init(context: Context, cardId: Int, address_or_tables: Int, total_pay: String) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://161.132.47.139/")
+            .baseUrl("http://www.el-gloton.shop/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

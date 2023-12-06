@@ -6,49 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".components.Login">
 
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="184dp"
-        android:layout_height="178dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="259dp"
+        android:layout_height="267dp"
+        android:layout_marginBottom="44dp"
         android:contentDescription="@string/app_name"
         android:foreground="@mipmap/gloton_foreground"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <EditText
         android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="372dp"
         android:ems="10"
-        android:textSize="24sp"
-        android:inputType="textPersonName"
         android:hint="Username"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:textSize="24sp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <TextView
         android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="68dp"
+        android:layout_marginBottom="36dp"
         android:text="¿Aún no tienes una cuenta?"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,13 +48,28 @@
         android:id="@+id/buttonSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="92dp"
+        android:background="@color/black"
         android:text="Login"
         android:textColor="@color/white"
-        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

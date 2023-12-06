@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object APIClientBuy {
     fun init(context: Context, foodId: Int, quantity: Int) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://161.132.47.139/") // Reemplaza con la URL de tu API
+            .baseUrl("http://www.el-gloton.shop/") // Reemplaza con la URL de tu API
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

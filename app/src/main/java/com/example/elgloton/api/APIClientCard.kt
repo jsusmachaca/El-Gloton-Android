@@ -18,7 +18,7 @@ object APIClientCard {
     }
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://161.132.47.139/")
+        .baseUrl("http://www.el-gloton.shop/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(createOkHttpClient())
         .build()
